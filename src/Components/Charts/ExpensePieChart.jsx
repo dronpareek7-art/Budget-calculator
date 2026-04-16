@@ -9,7 +9,6 @@ const COLORS = [
 ];
 
 const ExpensePieChart = ({ transactions }) => {
-  // Category-wise expense calculate karo
   const categoryData = transactions
     .filter((t) => t.type === "expense")
     .reduce((acc, t) => {

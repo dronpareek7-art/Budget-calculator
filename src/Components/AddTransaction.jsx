@@ -1,58 +1,80 @@
 import React from "react";
 import { MdCurrencyRupee } from "react-icons/md";
 import CategorySelector from "./CategorySelector";
-
+import { FaChevronDown } from "react-icons/fa";
 const AddTransaction = ({
   incometype, setIncomeType,
   currency, setCurrency,
   amount, setAmount,
   description, setDescription,
   category, setCategory,
-  AddIncome, user
+  AddIncome, user, isAdding
 }) => {
   return (
     <div className="Add_transaction">
       <h1>Add Transaction</h1>
-      <label>Type:</label>
-      <select
-        className="transaction_type"
-        onChange={(e) => setIncomeType(e.target.value)}
-        value={incometype}
-      >
-        <option value="">Select Transaction type</option>
-        <option value="income">Income</option>
-        <option value="expense">Expense</option>
-      </select>
 
-      <label>Currency:</label>
-      <select value={currency} onChange={(e) => setCurrency(e.target.value)}>
-        <option value="">Select Currency</option>
-        <option value="INR">INR- Indian Rupee</option>
-        <option value="USD">$USD- US Dollar</option>
-      </select>
+      <div className="form-group">
+        <label>Type</label>
+        <div className="type-toggle">
+          <button
+            type="button"
+            className={`type-btn ${incometype === "income" ? "active-income" : ""}`}
+            onClick={() => setIncomeType("income")}
+          >
+            + Income
+          </button>
+          <button
+            type="button"
+            className={`type-btn ${incometype === "expense" ? "active-expense" : ""}`}
+            onClick={() => setIncomeType("expense")}
+          >
+            − Expense
+          </button>
+        </div>
+      </div>
 
-      <label>Amount(<MdCurrencyRupee />):</label>
-      <input
-        type="number"
-        placeholder="0.00"
-        onChange={(e) => setAmount(e.target.value)}
-        value={amount}
-      />
+      <div className="form-group">
+        <label>Currency</label>
+        <select value={currency}onChange={(e) => setCurrency(e.target.value)}>
+          <option value="">Select currency</option>
+          <option value="INR">₹ INR — Indian Rupee </option>
+          <option value="USD">$ USD — US Dollar</option>
+        </select>
+         <FaChevronDown className="dropdown-icon" />
+      </div>
 
-      <label>Description</label>
-      <input
-        type="text"
-        placeholder="Enter Description"
-        onChange={(e) => setDescription(e.target.value)}
-        value={description}
-      />
+      <div className="form-group">
+        <label>Amount <MdCurrencyRupee style={{ verticalAlign: "middle" }} /></label>
+        <input
+          type="number"
+          placeholder="0.00"
+          min="0"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+        />
+      </div>
+
+      <div className="form-group">
+        <label>Description</label>
+        <input
+          type="text"
+          placeholder="e.g. Groceries, Salary..."
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+      </div>
 
       {incometype && currency && amount && (
         <CategorySelector category={category} setCategory={setCategory} />
       )}
 
-      <button className="AddExpense" onClick={AddIncome} disabled={!user}>
-        Add Expense(INR)
+      <button
+        className="AddExpense"
+        onClick={AddIncome}
+        disabled={!user || isAdding}
+      >
+        {isAdding ? "Saving..." : "Add Transaction"}
       </button>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { auth } from "../firebase";
-import "./Login.css"
+import "./Login.css";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -10,105 +10,105 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleAuth = async () => {
     if (!email || !password || (!isLogin && (!name || !confirmPassword))) {
-      alert("Please fill all fields ⚠️");
+      alert("Please fill all fields");
+      return;
+    }
+    if (!isLogin && password !== confirmPassword) {
+      alert("Passwords do not match");
       return;
     }
 
-    if (!isLogin && password !== confirmPassword) {
-      alert("Passwords do not match ❌");
-      return;
-    }
+    setLoading(true);
 
     try {
       if (isLogin) {
         await signInWithEmailAndPassword(auth, email, password);
-        alert("Login Successful ✅");
       } else {
-        const userCred = await createUserWithEmailAndPassword(
+        const cred = await createUserWithEmailAndPassword(
           auth,
           email,
-          password
+          password,
         );
-
-        await updateProfile(userCred.user, {
-          displayName: name,
-        });
-
-        alert("Account Created ✅");
+        await updateProfile(cred.user, { displayName: name });
       }
-
       navigate("/dashboard");
     } catch (error) {
       alert(error.message);
+    } finally {
+      setLoading(false);
     }
   };
+
+  const canSubmit =
+    email &&
+    password &&
+    (isLogin || (name && confirmPassword && password === confirmPassword));
 
   return (
     <div className="auth-container">
       <div className="auth-box">
-        <h1>{isLogin ? "Login" : "Signup"}</h1>
+        <h1>{isLogin ? "Welcome back" : "Create account"}</h1>
+        <p className="auth-sub">
+          {isLogin
+            ? "Sign in to your budget tracker"
+            : "Start tracking your finances"}
+        </p>
 
         {!isLogin && (
           <input
             type="text"
-            placeholder="Enter Name"
+            placeholder="Full name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            required
           />
         )}
 
         <input
           type="email"
-          placeholder="Enter Email"
+          placeholder="Email address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
         />
 
         <input
           type="password"
-          placeholder="Enter Password"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
         />
 
         {!isLogin && (
           <input
             type="password"
-            placeholder="Confirm Password"
+            placeholder="Confirm password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            required
           />
         )}
 
-        <button
-          onClick={handleAuth}
-          disabled={
-            !email ||
-            !password ||
-            (!isLogin && (!name || !confirmPassword || password !== confirmPassword))
-          }
-        >
-          {isLogin ? "Login" : "Signup"}
+        <button onClick={handleAuth} disabled={!canSubmit || loading}>
+          {loading ? "Please wait..." : isLogin ? "Sign in" : "Create account"}
         </button>
 
-        <p onClick={() => setIsLogin(!isLogin)} className="toggle-text">
-          {isLogin
-            ? "Don't have an account? Signup"
-            : "Already have an account? Login"}
+        <p className="toggle-text" onClick={() => setIsLogin(!isLogin)}>
+          {isLogin ? (
+            <>
+              Don't have an account? <span>Sign up</span>
+            </>
+          ) : (
+            <>
+              Already have an account? <span>Sign in</span>
+            </>
+          )}
         </p>
       </div>
     </div>

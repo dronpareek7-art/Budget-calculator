@@ -7,27 +7,37 @@ import { SiSimpleanalytics } from "react-icons/si";
 import { GiWallet } from "react-icons/gi";
 import "./Navbar.css";
 
-// ✅ setUser aur setTransactions props mein liya
+import { useLocation } from "react-router-dom";
+
 const Navbar = ({ user, setUser, setTransactions }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   async function handleLogout() {
     await signOut(auth);
-    setUser(null);           // ✅ Ab kaam karega
-    setTransactions([]);     // ✅ Ab kaam karega
+    setUser(null);
+    setTransactions([]);
     navigate("/");
   }
 
   return (
     <nav className="navbar">
       <div className="navbar-brand">
-        <Link to="/dashboard"><GiWallet size={20} color="white" /> Budget Tracker</Link>
+        <Link to="/dashboard">
+          <GiWallet size={20} color="white" /> Budget Tracker
+        </Link>
       </div>
       <div className="navbar-links">
-        <Link to="/analytics" className="nav-link">
+        <Link
+          to="/analytics"
+          className={`nav-link ${location.pathname === "/analytics" ? "active" : ""}`}
+        >
           <SiSimpleanalytics color="green" /> Analytics
         </Link>
-        <Link to="/profile" className="nav-link">
+        <Link
+          to="/profile"
+          className={`nav-link ${location.pathname === "/profile" ? "active" : ""}`}
+        >
           <MdPerson size={20} /> Profile
         </Link>
         {user ? (

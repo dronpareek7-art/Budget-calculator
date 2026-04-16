@@ -3,13 +3,12 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCP7saJb5wxBywb-Pq3FC7qZfSsVbugWWY",
-  authDomain: "budget-tracker-7944b.firebaseapp.com",
-  projectId: "budget-tracker-7944b",
-  storageBucket: "budget-tracker-7944b.firebasestorage.app",
-  messagingSenderId: "253766870093",
-  appId: "1:253766870093:web:da55a633bda7aef9f66804",
-  measurementId: "G-HVB21GXC1C"
+  apiKey: "AIzaSyBILWTAOMCvlyWZBxORSUiM7lcu4bvSfpA",
+  authDomain: "budget-tracker-c4783.firebaseapp.com",
+  projectId: "budget-tracker-c4783",
+  storageBucket: "budget-tracker-c4783.firebasestorage.app",
+  messagingSenderId: "351334671667",
+  appId: "1:351334671667:web:f1de4539592440878c0a46"
 };
 
 const app = initializeApp(firebaseConfig);

@@ -1,21 +1,24 @@
 import React from "react";
-import { FaUtensils, FaShoppingCart, FaCar, FaHome, FaFilm, FaHeartbeat, FaGift, FaMoneyBill } from "react-icons/fa";
+import {
+  FaUtensils, FaShoppingCart, FaCar, FaHome,
+  FaFilm, FaHeartbeat, FaGift, FaMoneyBill
+} from "react-icons/fa";
 
 export const categories = [
-  { name: "Food", icon: <FaUtensils /> },
-  { name: "Shopping", icon: <FaShoppingCart /> },
-  { name: "Travel", icon: <FaCar /> },
-  { name: "Rent", icon: <FaHome /> },
+  { name: "Food",          icon: <FaUtensils /> },
+  { name: "Shopping",      icon: <FaShoppingCart /> },
+  { name: "Travel",        icon: <FaCar /> },
+  { name: "Rent",          icon: <FaHome /> },
   { name: "Entertainment", icon: <FaFilm /> },
-  { name: "Health", icon: <FaHeartbeat /> },
-  { name: "Gift", icon: <FaGift /> },
-  { name: "Other", icon: <FaMoneyBill /> },
+  { name: "Health",        icon: <FaHeartbeat /> },
+  { name: "Gift",          icon: <FaGift /> },
+  { name: "Other",         icon: <FaMoneyBill /> },
 ];
 
 const CategorySelector = ({ category, setCategory }) => {
   return (
     <div className="category-container">
-      <h3>Select Category</h3>
+      <h3>Category</h3>
       <div className="category-grid">
         {categories.map((cat) => (
           <div
@@ -23,7 +26,6 @@ const CategorySelector = ({ category, setCategory }) => {
             className={`category-item ${category === cat.name ? "active" : ""}`}
             onClick={() => setCategory(cat.name)}
           >
-            {/* <span className="icon">{cat.name}</span> */}
             <p>{cat.name}</p>
           </div>
         ))}
