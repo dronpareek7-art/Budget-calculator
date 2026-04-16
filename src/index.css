@@ -1,4 +1,4 @@
-body {
+/* body {
   margin: 0;
   font-family: "Montserrat", sans-serif;
   background: linear-gradient(135deg, #020617, #0f172a);
@@ -208,9 +208,6 @@ button:hover {
   font-weight: bold;
 }
 
-/* ================= RESPONSIVE DESIGN ================= */
-
-/* Tablets */
 @media (max-width: 1024px) {
   .container {
     width: 95%;
@@ -230,7 +227,6 @@ button:hover {
   }
 }
 
-/* Mobile */
 @media (max-width: 768px) {
   .header h1 {
     font-size: 1.8rem;
@@ -279,7 +275,6 @@ button:hover {
   }
 }
 
-/* Small Mobile */
 @media (max-width: 480px) {
   .header h1 {
     font-size: 1.5rem;
@@ -318,4 +313,4 @@ button:hover {
   .buttons button {
     width: 100%;
   }
-}
+} */
