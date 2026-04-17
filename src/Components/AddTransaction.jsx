@@ -3,12 +3,19 @@ import { MdCurrencyRupee } from "react-icons/md";
 import CategorySelector from "./CategorySelector";
 import { FaChevronDown } from "react-icons/fa";
 const AddTransaction = ({
-  incometype, setIncomeType,
-  currency, setCurrency,
-  amount, setAmount,
-  description, setDescription,
-  category, setCategory,
-  AddIncome, user, isAdding
+  incometype,
+  setIncomeType,
+  currency,
+  setCurrency,
+  amount,
+  setAmount,
+  description,
+  setDescription,
+  category,
+  setCategory,
+  AddIncome,
+  user,
+  isAdding,
 }) => {
   return (
     <div className="Add_transaction">
@@ -36,16 +43,18 @@ const AddTransaction = ({
 
       <div className="form-group">
         <label>Currency</label>
-        <select value={currency}onChange={(e) => setCurrency(e.target.value)}>
+        <select value={currency} onChange={(e) => setCurrency(e.target.value)}>
           <option value="">Select currency</option>
           <option value="INR">₹ INR — Indian Rupee </option>
           <option value="USD">$ USD — US Dollar</option>
         </select>
-         <FaChevronDown className="dropdown-icon" />
+        <FaChevronDown className="dropdown-icon" />
       </div>
 
       <div className="form-group">
-        <label>Amount <MdCurrencyRupee style={{ verticalAlign: "middle" }} /></label>
+        <label>
+          Amount <MdCurrencyRupee style={{ verticalAlign: "middle" }} />
+        </label>
         <input
           type="number"
           placeholder="0.00"

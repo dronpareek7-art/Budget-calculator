@@ -1,4 +1,3 @@
-/* CONTAINER */
 .Profile-Container {
   padding: 30px 20px;
   min-height: 100vh;
@@ -17,7 +16,6 @@
   margin-bottom: 20px;
 }
 
-/* CARD */
 .profile-card {
   max-width: 750px;
   margin: auto;
@@ -33,7 +31,6 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-/* AVATAR SECTION */
 .profile-avatar-section {
   display: flex;
   align-items: center;
@@ -65,7 +62,6 @@
   font-size: 20px;
 }
 
-/* NAME */
 .profile-name-block h2 {
   font-size: 20px;
   font-weight: 600;
@@ -79,7 +75,6 @@
   border-radius: 20px;
 }
 
-/* GRID */
 .profile-info-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -91,7 +86,6 @@
   grid-column: span 2;
 }
 
-/* FIELD */
 .profile-field {
   display: flex;
   gap: 10px;
@@ -105,14 +99,12 @@
   background: rgba(30, 41, 59, 0.9);
 }
 
-/* ICON */
 .field-icon {
   font-size: 20px;
   color: #4f8ef7;
   margin-top: 4px;
 }
 
-/* TEXT */
 .field-body {
   display: flex;
   flex-direction: column;
@@ -149,21 +141,18 @@
   resize: none;
 }
 
-/* JOINED TEXT */
 .profile-joined {
   margin-top: 15px;
   font-size: 13px;
   color: #64748b;
 }
 
-/* BUTTONS */
 .profile-actions {
   margin-top: 20px;
   display: flex;
   gap: 10px;
 }
 
-/* BASE BTN */
 .profile-btn {
   display: flex;
   align-items: center;
@@ -176,7 +165,6 @@
   transition: 0.2s ease;
 }
 
-/* EDIT */
 .edit-btn {
   background: #4f8ef7;
   color: white;
@@ -186,7 +174,6 @@
   background: #3b7ae0;
 }
 
-/* SAVE */
 .save-btn {
   background: #22c55e;
   color: white;
@@ -196,7 +183,6 @@
   background: #16a34a;
 }
 
-/* CANCEL */
 .cancel-btn {
   background: rgba(239, 68, 68, 0.15);
   color: #ef4444;
@@ -206,7 +192,6 @@
   background: rgba(239, 68, 68, 0.25);
 }
 
-/* MOBILE */
 @media (max-width: 600px) {
   .profile-info-grid {
     grid-template-columns: 1fr;

@@ -254,6 +254,7 @@ body {
   width: 100%;
   appearance: none;
   -webkit-appearance: none;
+  cursor: pointer;
 }
 
 .Add_transaction input:focus,

@@ -1,15 +1,25 @@
 import React from "react";
-import { useState , useEffect } from "react";
-import { MdCurrencyRupee, MdAccountBalance, MdTrendingUp, MdTrendingDown , MdRefresh } from "react-icons/md";
+import { useState, useEffect } from "react";
+import {
+  MdCurrencyRupee,
+  MdAccountBalance,
+  MdTrendingUp,
+  MdTrendingDown,
+  MdRefresh,
+} from "react-icons/md";
 
-const Header = ({ totalBalance, totalIncome, totalExpense, UsdRate, onRefreshRate}) => {
-
-
+const Header = ({
+  totalBalance,
+  totalIncome,
+  totalExpense,
+  UsdRate,
+  onRefreshRate,
+}) => {
   const [lastUpdated, setLastUpdated] = useState(null);
   const [secondsAgo, setSecondsAgo] = useState(null);
   const [cooldown, setCooldown] = useState(false);
   const [spinning, setSpinning] = useState(false);
-   useEffect(() => {
+  useEffect(() => {
     const interval = setInterval(() => {
       if (lastUpdated) {
         const diff = Math.floor((Date.now() - lastUpdated) / 1000);
@@ -20,7 +30,7 @@ const Header = ({ totalBalance, totalIncome, totalExpense, UsdRate, onRefreshRat
     return () => clearInterval(interval);
   }, [lastUpdated]);
 
-    const handleRefresh = async () => {
+  const handleRefresh = async () => {
     if (cooldown) return;
 
     setSpinning(true);
@@ -41,7 +51,6 @@ const Header = ({ totalBalance, totalIncome, totalExpense, UsdRate, onRefreshRat
     if (secs < 60) return `Updated ${secs}s ago`;
     return `Updated ${Math.floor(secs / 60)}m ago`;
   };
-
 
   return (
     <div className="Header">

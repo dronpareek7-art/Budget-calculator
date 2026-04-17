@@ -1,11 +1,12 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./Navbar";
-import Calculator from "../pages/Calculator";
-import Analytics from "../pages/Analytics";
-import Profile from "../pages/Profile";
-import Login from "../pages/Login";
 import ProtectedRoute from "./ProtectedRoute";
+import { lazy } from "react";
+const Calculator = lazy(() => import("../pages/Calculator"));
+const Analytics = lazy(() => import("../pages/Analytics"));
+const Profile = lazy(() => import("../pages/Profile"));
+const Login = lazy(() => import("../pages/Login"));
 
 const Router = ({ transactions, setTransactions, user, setUser }) => {
   return (
@@ -17,42 +18,43 @@ const Router = ({ transactions, setTransactions, user, setUser }) => {
           setTransactions={setTransactions}
         />
       )}
+      <Suspense fallback={<h2>Loading...</h2>}>
+        <Routes>
+          <Route path="/" element={<Login />} />
 
-      <Routes>
-        <Route path="/" element={<Login />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute user={user}>
+                <Calculator
+                  transactions={transactions}
+                  setTransactions={setTransactions}
+                  user={user}
+                  setUser={setUser}
+                />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute user={user}>
-              <Calculator
-                transactions={transactions}
-                setTransactions={setTransactions}
-                user={user}
-                setUser={setUser}
-              />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/analytics"
+            element={
+              <ProtectedRoute user={user}>
+                <Analytics transactions={transactions} />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/analytics"
-          element={
-            <ProtectedRoute user={user}>
-              <Analytics transactions={transactions} />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute user={user}>
-              <Profile user={user} />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute user={user}>
+                <Profile user={user} />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 };
