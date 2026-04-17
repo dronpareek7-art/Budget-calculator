@@ -83,7 +83,26 @@
   opacity: 0.4;
   cursor: not-allowed;
 }
+.auth-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
 
+.auth-logo {
+  font-size: 26px;
+  color: #4f8ef7;
+}
+
+.auth-header h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #f0f4ff;
+  letter-spacing: 0.3px;
+}
 .toggle-text {
   margin-top: 18px;
   font-size: 0.82rem;

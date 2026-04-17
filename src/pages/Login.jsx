@@ -6,6 +6,8 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
+import { GiWallet } from "react-icons/gi";
+
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -56,13 +58,18 @@ const Login = () => {
   return (
     <div className="auth-container">
       <div className="auth-box">
+
+        <div className="auth-header">
+          <GiWallet className="auth-logo" />
+          <h2>Budget Tracker</h2>
+        </div>{" "}
+        
         <h1>{isLogin ? "Welcome back" : "Create account"}</h1>
         <p className="auth-sub">
           {isLogin
             ? "Sign in to your budget tracker"
             : "Start tracking your finances"}
         </p>
-
         {!isLogin && (
           <input
             type="text"
@@ -71,21 +78,18 @@ const Login = () => {
             onChange={(e) => setName(e.target.value)}
           />
         )}
-
         <input
           type="email"
           placeholder="Email address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-
         {!isLogin && (
           <input
             type="password"
@@ -94,11 +98,9 @@ const Login = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         )}
-
         <button onClick={handleAuth} disabled={!canSubmit || loading}>
           {loading ? "Please wait..." : isLogin ? "Sign in" : "Create account"}
         </button>
-
         <p className="toggle-text" onClick={() => setIsLogin(!isLogin)}>
           {isLogin ? (
             <>

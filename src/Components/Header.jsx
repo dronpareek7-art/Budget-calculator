@@ -56,8 +56,6 @@ const Header = ({
     <div className="Header">
       <div className="header-meta">
         <h2>Balance Overview</h2>
-        {/* <span className="usd-rate">1 USD = ₹{UsdRate ? UsdRate.toFixed(2) : "—"}</span> */}
-
         <div className="usd-row">
           <span className="usd-rate">
             1 USD = ₹{UsdRate ? UsdRate.toFixed(2) : "—"}

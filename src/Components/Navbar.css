@@ -90,3 +90,60 @@
 }
 
 .nav-btn.login:hover { background: #3a7de0; }
+/* Existing styles same rakho upar wale */
+
+.menu-icon {
+  display: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* 🔥 MOBILE */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 16px;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+
+  .navbar-links {
+    position: absolute;
+    top: 58px;
+    right: 0;
+    width: 100%;
+    background: rgba(8,12,20,0.98);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 12px;
+    display: none;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .navbar-links.active {
+    display: flex;
+  }
+
+  .nav-link {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .nav-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* 🔥 SMALL MOBILE */
+@media (max-width: 480px) {
+  .navbar-brand a {
+    font-size: 0.9rem;
+  }
+
+  .nav-link {
+    font-size: 0.8rem;
+  }
+}
