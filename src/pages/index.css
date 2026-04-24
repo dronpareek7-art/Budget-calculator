@@ -612,3 +612,25 @@ body {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+
+
+.month-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.month-filter button {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: none;
+  background: #1e293b;
+  color: #fff;
+  cursor: pointer;
+}
+
+.month-filter button.active {
+  background: #4f8ef7;
+}

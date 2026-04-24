@@ -2,6 +2,7 @@ import React from "react";
 import { MdCurrencyRupee } from "react-icons/md";
 import CategorySelector from "./CategorySelector";
 import { FaChevronDown } from "react-icons/fa";
+import { useState } from "react";
 const AddTransaction = ({
   incometype,
   setIncomeType,
@@ -13,13 +14,24 @@ const AddTransaction = ({
   setDescription,
   category,
   setCategory,
-  AddIncome,
+  AddIncome,  
   user,
   isAdding,
 }) => {
+  const [selectedMonth, setSelectedMonth] = useState(
+    new Date().toISOString().slice(0, 7),
+  );
   return (
     <div className="Add_transaction">
       <h1>Add Transaction</h1>
+      <div className="form-group">
+        <label>Month</label>
+        <input
+          type="month"
+          value={selectedMonth}
+          onChange={(e) => setSelectedMonth(e.target.value)}
+        />
+      </div>
 
       <div className="form-group">
         <label>Type</label>
@@ -80,7 +92,7 @@ const AddTransaction = ({
 
       <button
         className="AddExpense"
-        onClick={AddIncome}
+        onClick={() => AddIncome(selectedMonth)}
         disabled={!user || isAdding}
       >
         {isAdding ? "Saving..." : "Add Transaction"}

@@ -52,7 +52,11 @@ const ExpensePieChart = ({ transactions }) => {
             ))}
           </Pie>
           <Tooltip formatter={(val) => `₹${val.toFixed(2)}`} />
-          <Legend />
+          <Legend  
+          verticalAlign="middle"
+          layout="vertical"
+          align="right"
+          wrapperStyle={{right:60,top:0}} />
         </PieChart>
       </ResponsiveContainer>
     </div>

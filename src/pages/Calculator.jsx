@@ -1,7 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import {
-  collection, addDoc, getDocs,
-  query, where, deleteDoc, doc
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  where,
+  deleteDoc,
+  doc,
 } from "firebase/firestore";
 import { db } from "../firebase";
 import Header from "../Components/Header";
@@ -20,7 +25,9 @@ const Calculator = ({ transactions, setTransactions, user }) => {
   const [isAdding, setIsAdding] = useState(false);
   const fetchedForUser = useRef(null);
 
-  useEffect(() => { CurrConversion(); }, []);
+  useEffect(() => {
+    CurrConversion();
+  }, []);
 
   useEffect(() => {
     if (!user || fetchedForUser.current === user.uid) return;
@@ -30,7 +37,7 @@ const Calculator = ({ transactions, setTransactions, user }) => {
       try {
         const q = query(
           collection(db, "transactions"),
-          where("userId", "==", user.uid)
+          where("userId", "==", user.uid),
         );
         const snapshot = await getDocs(q);
         const data = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
@@ -52,19 +59,40 @@ const Calculator = ({ transactions, setTransactions, user }) => {
     }
   }
 
-  async function AddIncome() {
-    if (!user) { alert("Please login first"); return; }
-    if (!incometype) { alert("Transaction type select karo"); return; }
-    if (!currency) { alert("Currency select karo"); return; }
-    if (!amount || Number(amount) <= 0) { alert("Valid amount enter karo"); return; }
-    if (!description.trim()) { alert("Description enter karo"); return; }
-    if (!category) { alert("Category select karo"); return; }
+  async function AddIncome(selectedMonth) {
+    if (!user) {
+      alert("Please login first");
+      return;
+    }
+    if (!incometype) {
+      alert("Transaction type select karo");
+      return;
+    }
+    if (!currency) {
+      alert("Currency select karo");
+      return;
+    }
+    if (!amount || Number(amount) <= 0) {
+      alert("Valid amount enter karo");
+      return;
+    }
+    if (!description.trim()) {
+      alert("Description enter karo");
+      return;
+    }
+    if (!category) {
+      alert("Category select karo");
+      return;
+    }
 
     setIsAdding(true);
 
     let converted = Number(amount);
     if (currency === "USD") converted = Number(amount) * UsdRate;
     converted = Math.round(converted * 100) / 100;
+    const fullDate = selectedMonth
+      ? new Date(`${selectedMonth}-01`).toISOString()
+      : new Date().toISOString();
 
     const obj = {
       Title: description.trim(),
@@ -74,7 +102,8 @@ const Calculator = ({ transactions, setTransactions, user }) => {
       category: category,
       userId: user.uid,
       createdAt: Date.now(),
-      date: new Date().toISOString()
+
+      date: fullDate,
     };
 
     const tempId = "temp_" + Date.now();
@@ -82,13 +111,16 @@ const Calculator = ({ transactions, setTransactions, user }) => {
     try {
       setTransactions((prev) => [...prev, { id: tempId, ...obj }]);
 
-      setIncomeType(""); setCurrency(""); setAmount("");
-      setDescription(""); setCategory("");
+      setIncomeType("");
+      setCurrency("");
+      setAmount("");
+      setDescription("");
+      setCategory("");
 
       const docRef = await addDoc(collection(db, "transactions"), obj);
 
       setTransactions((prev) =>
-        prev.map((t) => t.id === tempId ? { ...t, id: docRef.id } : t)
+        prev.map((t) => (t.id === tempId ? { ...t, id: docRef.id } : t)),
       );
     } catch (err) {
       console.error("Add error:", err);
@@ -113,22 +145,27 @@ const Calculator = ({ transactions, setTransactions, user }) => {
   }
 
   const totalIncome = transactions.reduce(
-    (acc, t) => t.type === "income" ? acc + t.TransactionAmount : acc, 0
+    (acc, t) => (t.type === "income" ? acc + t.TransactionAmount : acc),
+    0,
   );
   const totalExpense = transactions.reduce(
-    (acc, t) => t.type === "expense" ? acc + t.TransactionAmount : acc, 0
+    (acc, t) => (t.type === "expense" ? acc + t.TransactionAmount : acc),
+    0,
   );
   const totalBalance = totalIncome - totalExpense;
 
-  const filterTransaction = Filter === "All"
-    ? transactions
-    : transactions.filter((t) => t.currencyType === Filter);
+  const filterTransaction =
+    Filter === "All"
+      ? transactions
+      : transactions.filter((t) => t.currencyType === Filter);
 
   return (
     <div className="Container">
       <div className="page-header">
         <h1 className="page-title">Budget Tracker</h1>
-        <p className="page-subtitle">Track your income & expenses across currencies</p>
+        <p className="page-subtitle">
+          Track your income & expenses across currencies
+        </p>
       </div>
 
       <Header
@@ -141,12 +178,19 @@ const Calculator = ({ transactions, setTransactions, user }) => {
 
       <div className="Transaction_box">
         <AddTransaction
-          incometype={incometype} setIncomeType={setIncomeType}
-          currency={currency} setCurrency={setCurrency}
-          amount={amount} setAmount={setAmount}
-          description={description} setDescription={setDescription}
-          category={category} setCategory={setCategory}
-          AddIncome={AddIncome} user={user} isAdding={isAdding}
+          incometype={incometype}
+          setIncomeType={setIncomeType}
+          currency={currency}
+          setCurrency={setCurrency}
+          amount={amount}
+          setAmount={setAmount}
+          description={description}
+          setDescription={setDescription}
+          category={category}
+          setCategory={setCategory}
+          AddIncome={AddIncome}
+          user={user}
+          isAdding={isAdding}
         />
         <TransactionList
           filterTransaction={filterTransaction}
